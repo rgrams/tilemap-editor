@@ -15,6 +15,8 @@ local screenAlloc = { x = 0, y = 0, w = sw, h = sh, designW = sw, designH = sh, 
 function love.load()
 	math.randomseed(love.timer.getTime() * 10000)
 
+	love.graphics.setBackgroundColor(0.1, 0.1, 0.1, 1)
+
 	Input.init()
 	Input.bindMultiple(require("input-bindings"))
 
