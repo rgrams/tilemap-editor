@@ -3,7 +3,7 @@ local script = {}
 
 local edit = require "editor.edit"
 
-function script.init(self)
+function script.postInit(self)
 	self.mapCam = self.tree:get("/MapCamera")
 end
 
@@ -24,10 +24,10 @@ function script.ruuinput(self, action, value, change)
 		local mwx, mwy = self.mapCam:screenToWorld(msx, msy)
 		edit.cursorWX, edit.cursorWY = mwx, mwy
 		if Input.get("click") == 1 then
-			self.tree:get("/Editor"):call("drag")
+			if edit.curTool then  edit.curTool:call("drag")  end
 		end
 	elseif action == "click" and change == 1 then
-		self.tree:get("/Editor"):call("click")
+		if edit.curTool then  edit.curTool:call("click")  end
 	elseif action == "pan" and change == 1 then
 		self.ruu:startDrag(self, "pan")
 	elseif action == "zoomIn" and change == 1 then

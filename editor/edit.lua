@@ -5,6 +5,8 @@ local mapSettings = require "editor.map-settings"
 
 M.cursorWX, M.cursorWY = 0, 0
 M.brushTile = 1
+M.curTool = nil
+M.curMap = nil
 
 function M.roundToGrid(wx, wy)
 	return math.round(wx, mapSettings.gridX), math.round(wy, mapSettings.gridY)

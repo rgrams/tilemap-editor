@@ -1,24 +1,28 @@
 
-local script = {}
+local Brush = Object:extend()
 
 local mapSettings = require "editor.map-settings"
 local edit = require "editor.edit"
 
 local gridX, gridY = mapSettings.gridX, mapSettings.gridY
 
-function script.drag(self)
-	local tx, ty = edit.worldToTile(edit.cursorWX, edit.cursorWY)
-	self:setTile(tx, ty, edit.brushTile, true)
+function Brush.postInit(self)
+	self.viewport = self.tree:get("/GuiRoot/Interface/Viewport")
+	edit.curTool = self
 end
 
-function script.click(self)
+function Brush.drag(self)
 	local tx, ty = edit.worldToTile(edit.cursorWX, edit.cursorWY)
-	self:setTile(tx, ty, edit.brushTile, true)
+	edit.curMap:setTile(tx, ty, edit.brushTile, true)
 end
 
-function script.draw(self)
-	local viewport = self.tree:get("/GuiRoot/Interface/Viewport")
-	if viewport and viewport.isHovered then
+function Brush.click(self)
+	local tx, ty = edit.worldToTile(edit.cursorWX, edit.cursorWY)
+	edit.curMap:setTile(tx, ty, edit.brushTile, true)
+end
+
+function Brush.draw(self)
+	if self.viewport.isHovered then
 		love.graphics.setColor(1, 1, 1, 1)
 		local tx, ty = edit.worldToTile(edit.cursorWX, edit.cursorWY)
 		local x, y = edit.tileToWorld(tx, ty)
@@ -27,4 +31,4 @@ function script.draw(self)
 	end
 end
 
-return script
+return Brush

@@ -23,18 +23,23 @@ function love.load()
 
 	-- Root objects & scripts may require physics categories, and are only used in load().
 	local GuiRoot = require "GuiRoot"
-	local Editor = require "editor.Editor"
+	local Map = require "editor.Map"
+	local DefaultTool = require "editor.tools.Brush"
 	local Interface = require "interface.Interface"
 
 	scene = SceneTree(config.drawLayers, config.defaultDrawLayer)
 
 	mapCam = scene:add(mod(Camera(0, 0, 0, nil, "expand view"), {name = "MapCamera"}))
 	paletteCam = scene:add(mod(Camera(0, 0, 0, {900, 900}, "fixed area"), {name = "PaletteCamera"}))
-	scene:add(Editor())
+
+	scene:add(Map())
+	scene:add(DefaultTool())
 
    guiRoot = mod(GuiRoot(), { children = {Interface()} })
 	scene:add(guiRoot)
 	guiRoot:allocate(screenAlloc)
+
+	scene:callRecursive("postInit") -- So objects can get references to each other.
 end
 
 function love.update(dt)

@@ -11,6 +11,10 @@ local function snapToGrid(lx, ly)
 	return x, y
 end
 
+function script.postInit(self)
+	self.palette = self.tree:get("/GuiRoot/Interface/Palette")
+end
+
 function script.draw(self)
 	-- Draw cyan border around whole image.
 	love.graphics.setColor(0, 1, 1, 1)
@@ -28,8 +32,7 @@ function script.draw(self)
 	end
 
 	-- Draw a cursor, snapped to the grid.
-	local palette = self.tree:get("/GuiRoot/Interface/Palette")
-	if palette and palette.isHovered and self.lmx and self.lmy then
+	if self.palette.isHovered and self.lmx and self.lmy then
 		love.graphics.setColor(1, 0.5, 0, 0.5)
 		local w, h = mapSettings.gridX, mapSettings.gridY
 		local x, y = snapToGrid(self.lmx, self.lmy)

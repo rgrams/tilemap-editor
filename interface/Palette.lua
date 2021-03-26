@@ -4,9 +4,11 @@ local PaletteImage = require "interface.PaletteImage"
 
 local script = {}
 
-function script.init(self)
+function script.postInit(self)
 	self.paletteCam = self.tree:get("/PaletteCamera")
+end
 
+function script.init(self)
 	self.paletteImg = self.tree:add(PaletteImage())
 end
 
