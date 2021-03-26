@@ -8,8 +8,6 @@ function script.drag(self, dx, dy, dragType)
 		local wdx, wdy = Camera.current:screenToWorld(dx, dy, true)
 		local pos = Camera.current.pos
 		pos.x, pos.y = pos.x - wdx, pos.y - wdy
-	elseif dragType == nil then
-		self.tree:get("/GameManager/Editor"):call("drag", dx, dy)
 	end
 end
 
@@ -21,6 +19,9 @@ function script.ruuinput(self, action, value, change)
 		local msx, msy = love.mouse.getPosition()
 		local mwx, mwy = Camera.current:screenToWorld(msx, msy)
 		edit.cursorWX, edit.cursorWY = mwx, mwy
+		if Input.get("click") == 1 then
+			self.tree:get("/GameManager/Editor"):call("drag")
+		end
 	elseif action == "click" and change == 1 then
 		self.tree:get("/GameManager/Editor"):call("click")
 	elseif action == "pan" and change == 1 then

@@ -23,19 +23,17 @@ local function tileToWorld(tx, ty)
 	return (tx) * gridX, (ty) * gridY
 end
 
-function script.drag(self, sdx, sdy)
-	local wdx, wdy = Camera.current:screenToWorld(sdx, sdy, true)
+function script.drag(self)
+	local tx, ty = worldToTile(edit.cursorWX, edit.cursorWY)
+	self:setTile(tx, ty, edit.brushTile, true)
 end
 
 function script.click(self)
-	print("Editor click")
 	local tx, ty = worldToTile(edit.cursorWX, edit.cursorWY)
-	print(tx, ty)
 	self:setTile(tx, ty, edit.brushTile, true)
 end
 
 function script.draw(self)
-	-- local x, y = roundToGrid(self.cursor.pos.x, self.cursor.pos.y)
 	love.graphics.setColor(1, 1, 1, 1)
 	local tx, ty = worldToTile(edit.cursorWX, edit.cursorWY)
 	local x, y = tileToWorld(tx, ty)
