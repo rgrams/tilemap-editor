@@ -18,4 +18,15 @@ function M.tileToWorld(tx, ty)
 	return (tx) * mapSettings.gridX, (ty) * mapSettings.gridY
 end
 
+function M.paletteTileToIndex(tx, ty)
+	local pw = mapSettings.paletteWidth
+	return (ty - 1) * pw + tx
+end
+
+function M.paletteIndexToXY(ti)
+	local tx = ti % mapSettings.paletteWidth
+	local ty = math.floor(ti/mapSettings.paletteWidth) + 1
+	return tx, ty
+end
+
 return M

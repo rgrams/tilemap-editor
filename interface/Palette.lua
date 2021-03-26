@@ -8,7 +8,7 @@ function script.init(self)
 	self.paletteCam = self.tree:get("/PaletteCamera")
 
 	local root = self.tree:get("/GameManager")
-	self.tree:add(PaletteImage(), root)
+	self.paletteImg = self.tree:add(PaletteImage(), root)
 end
 
 function script.drag(self, dx, dy, dragType)
@@ -22,13 +22,12 @@ end
 local zoomRate = 0.1
 
 function script.ruuinput(self, action, value, change)
-	-- print("Palette.ruuinput", action, value)
 	if action == "mouseMoved" then
-		local sx, sy = love.mouse.getPosition()
-		-- self.tileImage:call("mouseMoved", sx, sy)
+		local wx, wy = self.paletteCam:screenToWorld(love.mouse.getPosition())
+		self.paletteImg:call("mouseMoved", wx, wy)
 	elseif action == "click" and change == 1 then
-		local sx, sy = love.mouse.getPosition()
-		-- self.tileImage:call("click", sx, sy)
+		local wx, wy = self.paletteCam:screenToWorld(love.mouse.getPosition())
+		self.paletteImg:call("click", wx, wy)
 	elseif action == "pan" and change == 1 then
 		self.ruu:startDrag(self, "pan")
 	elseif action == "zoomIn" and change == 1 then
@@ -55,12 +54,6 @@ local function Palette(ruu)
 	self.name = "Palette"
 	self.isDraggable = true
 	self.scripts = { script }
-	-- self.mask = gui.Mask():mode("fill", "fill")
-	-- self.tileImage = PaletteImage()
-	-- self.mask.children = { self.tileImage }
-	-- self.children = { self.mask }
-	-- self.imgW, self.imgH = self.tileImage.w, self.tileImage.h
-	self.zoom = 1
 	return self
 end
 
