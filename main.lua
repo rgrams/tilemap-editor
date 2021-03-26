@@ -24,7 +24,6 @@ function love.load()
 
 	-- Root objects & scripts may require physics categories, and are only used in load().
 	local GuiRoot = require "GuiRoot"
-	local menuSwitcher_script = require "interface.menuSwitcher_script"
 	local Editor = require "editor.Editor"
 	local Interface = require "interface.Interface"
 
