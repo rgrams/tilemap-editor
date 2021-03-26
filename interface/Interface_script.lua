@@ -10,7 +10,7 @@ function script.final(self)
 end
 
 local hoverActions = {
-	pan = 1, scrollx = 1, scrolly = 1, zoomIn = 1, zoomOut = 1
+	pan = 1, scrollx = 1, scrolly = 1, zoomIn = 1, zoomOut = 1, mouseMoved = 1
 }
 
 function script.input(self, action, value, change, ...)

@@ -18,8 +18,10 @@ local function zoom(self, zoomIn)
 end
 
 function script.ruuinput(self, action, value, change)
-	print("Palette.ruuinput", action, value)
-	if action == "pan" and change == 1 then
+	-- print("Palette.ruuinput", action, value)
+	if action == "mouseMoved" then
+
+	elseif action == "pan" and change == 1 then
 		self.ruu:startDrag(self, "pan")
 	elseif action == "zoomIn" and change == 1 then
 		zoom(self, true)

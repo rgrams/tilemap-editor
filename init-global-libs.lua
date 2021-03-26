@@ -5,5 +5,6 @@ gui = require "philtre.objects.gui.all"
 vec2 = require "philtre.lib.vec2xy"
 flux = require "philtre.lib.flux"
 config = require "config"
+Tilemap = require "common.Tilemap"
 
 require "interface.widgets.shrinkwrap"

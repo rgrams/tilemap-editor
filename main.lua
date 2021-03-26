@@ -22,8 +22,8 @@ function love.load()
 
 	-- Root objects & scripts may require physics categories, and are only used in load().
 	local GuiRoot = require "GuiRoot"
-	local gameManager_script = require "gameManager_script"
 	local menuSwitcher_script = require "interface.menuSwitcher_script"
+	local Editor = require "editor.Editor"
 
 	scene = SceneTree(config.drawLayers, config.defaultDrawLayer)
 
@@ -31,8 +31,10 @@ function love.load()
 	scene:add(guiRoot)
 	guiRoot:allocate(screenAlloc)
 
-	gameRoot = mod(Object(), {scripts = {gameManager_script}, name = "GameManager"})
+	gameRoot = mod(Object(), {name = "GameManager"})
 	scene:add(gameRoot)
+	scene:add(Camera(), gameRoot)
+	scene:add(Editor(), gameRoot)
 end
 
 function love.update(dt)

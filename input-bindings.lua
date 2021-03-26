@@ -17,6 +17,8 @@ local M = {
 	{ "button", "M:3", "pan" },
 	{ "button", "m:wheely+", "zoomIn" },
 	{ "button", "m:wheely-", "zoomOut" },
+	{ "button", "M:1", "click" },
+	{ "mouseMoved", "mouseMoved" },
 
 	{ "axis", "a", "d", "p1_x"},
 	{ "axis", "w", "s", "p1_y"},
