@@ -1,15 +1,10 @@
 
 local script = {}
 
-local Cursor = require "editor.Cursor"
 local mapSettings = require "editor.map-settings"
 local edit = require "editor.edit"
 
 local gridX, gridY = mapSettings.gridX, mapSettings.gridY
-
-function script.init(self)
-	print(self)
-end
 
 function script.drag(self)
 	local tx, ty = edit.worldToTile(edit.cursorWX, edit.cursorWY)
