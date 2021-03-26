@@ -14,6 +14,10 @@ local M = {
 	{ "button", "M:1", "left click" },
 	{ "mouseMoved", "updateCursor" },
 
+	{ "button", "M:3", "pan" },
+	{ "button", "m:wheely+", "zoomIn" },
+	{ "button", "m:wheely-", "zoomOut" },
+
 	{ "axis", "a", "d", "p1_x"},
 	{ "axis", "w", "s", "p1_y"},
 	{ "axis", "left", "right", "p1_x" },

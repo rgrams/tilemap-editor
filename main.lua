@@ -4,9 +4,10 @@ io.stdout:setvbuf("no") -- For use with external console.
 require "init-global-libs"
 
 local worldDebugEnabled = true
-local guiDebugEnabled = false
+local guiDebugEnabled = true
 
 local scene, guiRoot, gameRoot
+local Interface = require "interface.Interface"
 
 local sw, sh = love.window.getMode()
 local screenAlloc = { x = 0, y = 0, w = sw, h = sh, designW = sw, designH = sh, scale = 1 }
@@ -26,10 +27,9 @@ function love.load()
 
 	scene = SceneTree(config.drawLayers, config.defaultDrawLayer)
 
-   guiRoot = mod(GuiRoot(), {scripts = {menuSwitcher_script}})
+   guiRoot = mod(GuiRoot(), { children = {Interface()} })
 	scene:add(guiRoot)
 	guiRoot:allocate(screenAlloc)
-	guiRoot:call("loadMenus", config.menuList, config.startMenuName)
 
 	gameRoot = mod(Object(), {scripts = {gameManager_script}, name = "GameManager"})
 	scene:add(gameRoot)

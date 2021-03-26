@@ -4,7 +4,7 @@ local M = {}
 M.drawLayers = {
 	world = { "default" },
 	debug = { "debug" },
-	gui = { "text", "widgets", "gui" },
+	gui = { "text", "widgets", "gui", "panel" },
 	guiDebug = { "guiDebug" },
 }
 M.defaultDrawLayer = "default"
