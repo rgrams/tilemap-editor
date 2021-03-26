@@ -17,11 +17,14 @@ function script.click(self)
 end
 
 function script.draw(self)
-	love.graphics.setColor(1, 1, 1, 1)
-	local tx, ty = edit.worldToTile(edit.cursorWX, edit.cursorWY)
-	local x, y = edit.tileToWorld(tx, ty)
-	love.graphics.rectangle("line", x - gridX/2, y - gridY/2, gridX, gridY)
-	love.graphics.print(tx..", "..ty, edit.cursorWX + 50, edit.cursorWY)
+	local viewport = self.tree:get("/GuiRoot/Interface/Viewport")
+	if viewport and viewport.isHovered then
+		love.graphics.setColor(1, 1, 1, 1)
+		local tx, ty = edit.worldToTile(edit.cursorWX, edit.cursorWY)
+		local x, y = edit.tileToWorld(tx, ty)
+		love.graphics.rectangle("line", x - gridX/2, y - gridY/2, gridX, gridY)
+		love.graphics.print(tx..", "..ty, edit.cursorWX + 50, edit.cursorWY)
+	end
 end
 
 return script

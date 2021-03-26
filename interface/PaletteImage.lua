@@ -28,7 +28,8 @@ function script.draw(self)
 	end
 
 	-- Draw a cursor, snapped to the grid.
-	if self.lmx and self.lmy then
+	local palette = self.tree:get("/GuiRoot/Interface/Palette")
+	if palette and palette.isHovered and self.lmx and self.lmy then
 		love.graphics.setColor(1, 0.5, 0, 0.5)
 		local w, h = mapSettings.gridX, mapSettings.gridY
 		local x, y = snapToGrid(self.lmx, self.lmy)
