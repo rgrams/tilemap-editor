@@ -3,7 +3,6 @@ io.stdout:setvbuf("no") -- For use with external console.
 
 require "init-global-libs"
 
-local worldDebugEnabled = true
 local guiDebugEnabled = true
 
 local scene, guiRoot, gameRoot
@@ -29,11 +28,9 @@ function love.load()
 
 	scene = SceneTree(config.drawLayers, config.defaultDrawLayer)
 
-	gameRoot = mod(Object(), {name = "GameManager"})
-	scene:add(gameRoot)
 	mapCam = scene:add(mod(Camera(0, 0, 0, nil, "expand view"), {name = "MapCamera"}))
 	paletteCam = scene:add(mod(Camera(0, 0, 0, {900, 900}, "fixed area"), {name = "PaletteCamera"}))
-	scene:add(Editor(), gameRoot)
+	scene:add(Editor())
 
    guiRoot = mod(GuiRoot(), { children = {Interface()} })
 	scene:add(guiRoot)
@@ -53,7 +50,6 @@ end
 function love.draw()
 	mapCam:applyTransform()
 	scene:draw("world")
-	if worldDebugEnabled then  debugDraw(gameRoot, "debug")  end
 	mapCam:resetTransform()
 
 	paletteCam:applyTransform()

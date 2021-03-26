@@ -7,8 +7,7 @@ local script = {}
 function script.init(self)
 	self.paletteCam = self.tree:get("/PaletteCamera")
 
-	local root = self.tree:get("/GameManager")
-	self.paletteImg = self.tree:add(PaletteImage(), root)
+	self.paletteImg = self.tree:add(PaletteImage())
 end
 
 function script.drag(self, dx, dy, dragType)

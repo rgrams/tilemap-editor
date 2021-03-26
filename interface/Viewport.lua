@@ -24,10 +24,10 @@ function script.ruuinput(self, action, value, change)
 		local mwx, mwy = self.mapCam:screenToWorld(msx, msy)
 		edit.cursorWX, edit.cursorWY = mwx, mwy
 		if Input.get("click") == 1 then
-			self.tree:get("/GameManager/Editor"):call("drag")
+			self.tree:get("/Editor"):call("drag")
 		end
 	elseif action == "click" and change == 1 then
-		self.tree:get("/GameManager/Editor"):call("click")
+		self.tree:get("/Editor"):call("click")
 	elseif action == "pan" and change == 1 then
 		self.ruu:startDrag(self, "pan")
 	elseif action == "zoomIn" and change == 1 then
