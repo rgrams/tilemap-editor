@@ -8,17 +8,18 @@ local gridX, gridY = mapSettings.gridX, mapSettings.gridY
 
 function Brush.postInit(self)
 	self.viewport = self.tree:get("/GuiRoot/Interface/Viewport")
-	edit.curTool = self
 end
 
 function Brush.drag(self)
 	local tx, ty = edit.worldToTile(edit.cursorWX, edit.cursorWY)
-	edit.curMap:setTile(tx, ty, edit.brushTile, true)
+	if edit.curMap:getTile(tx, ty, true) ~= edit.brushTile then
+		edit.cmd:perform("setTile", tx, ty, edit.brushTile, true)
+	end
 end
 
 function Brush.click(self)
 	local tx, ty = edit.worldToTile(edit.cursorWX, edit.cursorWY)
-	edit.curMap:setTile(tx, ty, edit.brushTile, true)
+	edit.cmd:perform("setTile", tx, ty, edit.brushTile, true)
 end
 
 function Brush.draw(self)

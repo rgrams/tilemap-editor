@@ -18,13 +18,13 @@ function love.load()
 
 	Input.init()
 	Input.bindMultiple(require("input-bindings"))
+	love.keyboard.setKeyRepeat(true)
 
 	physics.setCategoryNames(unpack(config.physicsCategoryNames))
 
 	-- Root objects & scripts may require physics categories, and are only used in load().
 	local GuiRoot = require "GuiRoot"
-	local Map = require "editor.Map"
-	local DefaultTool = require "editor.tools.Brush"
+	local Editor = require "editor.Editor"
 	local Interface = require "interface.Interface"
 
 	scene = SceneTree(config.drawLayers, config.defaultDrawLayer)
@@ -32,8 +32,7 @@ function love.load()
 	mapCam = scene:add(mod(Camera(0, 0, 0, nil, "expand view"), {name = "MapCamera"}))
 	paletteCam = scene:add(mod(Camera(0, 0, 0, {900, 900}, "fixed area"), {name = "PaletteCamera"}))
 
-	scene:add(Map())
-	scene:add(DefaultTool())
+	scene:add(Editor())
 
    guiRoot = mod(GuiRoot(), { children = {Interface()} })
 	scene:add(guiRoot)

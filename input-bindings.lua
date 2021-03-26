@@ -20,10 +20,9 @@ local M = {
 	{ "button", "M:1", "click" },
 	{ "mouseMoved", "mouseMoved" },
 
-	{ "axis", "a", "d", "p1_x"},
-	{ "axis", "w", "s", "p1_y"},
-	{ "axis", "left", "right", "p1_x" },
-	{ "axis", "up", "down", "p1_y" },
+	{ "button", "shift", "shift" },
+	{ "button", "ctrl z", "undo/redo" },
+	{ "button", "ctrl k:z", "undo/redo" },
 }
 
 return M
