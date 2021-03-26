@@ -7,7 +7,7 @@ local worldDebugEnabled = true
 local guiDebugEnabled = true
 
 local scene, guiRoot, gameRoot
-local Interface = require "interface.Interface"
+local mapCam, paletteCam
 
 local sw, sh = love.window.getMode()
 local screenAlloc = { x = 0, y = 0, w = sw, h = sh, designW = sw, designH = sh, scale = 1 }
@@ -24,17 +24,19 @@ function love.load()
 	local GuiRoot = require "GuiRoot"
 	local menuSwitcher_script = require "interface.menuSwitcher_script"
 	local Editor = require "editor.Editor"
+	local Interface = require "interface.Interface"
 
 	scene = SceneTree(config.drawLayers, config.defaultDrawLayer)
+
+	gameRoot = mod(Object(), {name = "GameManager"})
+	scene:add(gameRoot)
+	mapCam = scene:add(mod(Camera(0, 0, 0, nil, "expand view"), {name = "MapCamera"}))
+	paletteCam = scene:add(mod(Camera(0, 0, 0, nil, "expand view"), {name = "PaletteCamera"}))
+	scene:add(Editor(), gameRoot)
 
    guiRoot = mod(GuiRoot(), { children = {Interface()} })
 	scene:add(guiRoot)
 	guiRoot:allocate(screenAlloc)
-
-	gameRoot = mod(Object(), {name = "GameManager"})
-	scene:add(gameRoot)
-	scene:add(Camera(), gameRoot)
-	scene:add(Editor(), gameRoot)
 end
 
 function love.update(dt)
@@ -48,16 +50,20 @@ local function debugDraw(rootObject, layer)
 end
 
 function love.draw()
-	Camera.current:applyTransform()
+	mapCam:applyTransform()
 	scene:draw("world")
 	if worldDebugEnabled then  debugDraw(gameRoot, "debug")  end
-	Camera.current:resetTransform()
+	mapCam:resetTransform()
+
+	paletteCam:applyTransform()
+	scene:draw("palette")
+	paletteCam:resetTransform()
+
 	scene:draw("gui")
 	if guiDebugEnabled then  debugDraw(guiRoot, "guiDebug")  end
 end
 
 function love.resize(w, h)
-	Camera.setAllViewports(0, 0, w, h)
 	screenAlloc.w, screenAlloc.h = w, h
 	guiRoot:allocate(screenAlloc)
 end
