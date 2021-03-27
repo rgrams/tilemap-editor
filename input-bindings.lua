@@ -23,6 +23,7 @@ local M = {
 	{ "button", "shift", "shift" },
 	{ "button", "ctrl z", "undo/redo" },
 	{ "button", "ctrl k:z", "undo/redo" },
+	{ "button", "ctrl k:s", "save" },
 }
 
 return M
