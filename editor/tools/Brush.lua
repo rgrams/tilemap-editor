@@ -24,11 +24,26 @@ end
 
 function Brush.draw(self)
 	if self.viewport.isHovered then
-		love.graphics.setColor(1, 1, 1, 1)
 		local tx, ty = edit.worldToTile(edit.cursorWX, edit.cursorWY)
 		local x, y = edit.tileToWorld(tx, ty)
-		love.graphics.rectangle("line", x - gridX/2, y - gridY/2, gridX, gridY)
+		x, y = x - gridX/2, y - gridY/2
+
+		-- Draw tile preview.
+		if edit.brushTile then
+			love.graphics.setColor(1, 1, 1, 0.5)
+			local img, quad = edit.curMap.image, edit.curMap.quads[edit.brushTile]
+			love.graphics.draw(img, quad, x, y, nil, nil, nil, ox, oy)
+		else -- Nil tile brush / eraser.
+			local r, g, b, a = love.graphics.getBackgroundColor()
+			love.graphics.setColor(r, g, b, 0.5)
+			love.graphics.rectangle("fill", x, y, gridX, gridY)
+		end
+
+		-- Draw tile outline.
+		love.graphics.setColor(1, 1, 1, 1)
+		love.graphics.rectangle("line", x, y, gridX, gridY)
 		love.graphics.print(tx..", "..ty, edit.cursorWX + 50, edit.cursorWY)
+
 	end
 end
 
