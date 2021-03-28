@@ -7,25 +7,28 @@ function script.postInit(self)
 	self.mapCam = self.tree:get("/MapCamera")
 end
 
+local function updateEditorCursorPos(self)
+	local sx, sy = love.mouse.getPosition()
+	local wx, wy = self.mapCam:screenToWorld(sx, sy)
+	edit.cursorWX, edit.cursorWY = wx, wy
+end
+
 function script.drag(self, dx, dy, dragType)
 	if dragType == "pan" then
 		local wdx, wdy = self.mapCam:screenToWorld(dx, dy, true)
 		local pos = self.mapCam.pos
 		pos.x, pos.y = pos.x - wdx, pos.y - wdy
+	elseif dragType == nil then
+		updateEditorCursorPos(self)
+		if edit.curTool then  edit.curTool:call("drag")  end
 	end
 end
 
 local zoomRate = 0.1
 
 function script.ruuinput(self, action, value, change)
-	-- print("Viewport.ruuinput", action, value)
 	if action == "mouseMoved" then
-		local msx, msy = love.mouse.getPosition()
-		local mwx, mwy = self.mapCam:screenToWorld(msx, msy)
-		edit.cursorWX, edit.cursorWY = mwx, mwy
-		if Input.get("click") == 1 then
-			if edit.curTool then  edit.curTool:call("drag")  end
-		end
+		updateEditorCursorPos(self)
 	elseif action == "click" and change == 1 then
 		if edit.curTool then  edit.curTool:call("click")  end
 	elseif action == "pan" and change == 1 then
