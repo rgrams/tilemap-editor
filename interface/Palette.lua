@@ -41,8 +41,12 @@ function script.ruuinput(self, action, value, change)
 end
 
 function script.allocate(self, alloc)
-	local winW, winH = love.window.getMode()
-	local x, y = winW - self.w, winH - self.h
+	local kx, ky = 0.5 + self.px/2, 0.5 + self.py/2
+	local x, y = -self.w * kx, -self.h * ky
+	self.parent:updateTransform()
+	self:updateTransform()
+	x, y = self:toWorld(x, y)
+
 	self.paletteCam = self.paletteCam or self.tree:get("/PaletteCamera")
 	self.paletteCam:setViewport(x, y, self.w, self.h)
 end

@@ -36,7 +36,7 @@ function love.load()
 
    guiRoot = mod(GuiRoot(), { children = {Interface()} })
 	scene:add(guiRoot)
-	guiRoot:allocate(screenAlloc)
+	guiRoot:allocate(screenAlloc, true)
 
 	scene:callRecursive("postInit") -- So objects can get references to each other.
 end
